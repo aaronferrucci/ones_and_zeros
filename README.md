@@ -26,3 +26,26 @@ pqrstuvw       gw       s{ ►↑ (08        g
       br      ► 0        b       rò      ` à
 0010xxxx       tô          011xxxxx        t
 ```
+
+Result, restricted to printable characters:
+```
+$ perl decode.pl raw_data.txt
+                e                hi !%15aequ
+                e           GOW_gow     EUeu
+                e                 m       %e
+    hilm        c     hijk       vw        c
+      dl        e     dfln      "$&        e
+pqrstuvw       gw       s{      (08        g
+       e 01xxxxxx xxxxxxxx    0@P`p        h
+               de      !"#   !1AQaq        d
+       e        n       de  $(,`dhl        n
+       e        h 011xxxxx      !`a        h
+       n          011xxxx0       aq
+                l 0xxxx00x       t|       ,l
+               sw    0@P`p   +/KOko       Ss
+               %e      (`h      sw{       eu
+    tuvw      !"#       pt     `ahi        0
+      sw     aeim       rs          01xx0x0x
+      br        0        b        r        `
+0010xxxx        t          011xxxxx        t
+```

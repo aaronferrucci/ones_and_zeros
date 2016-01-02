@@ -30,7 +30,6 @@ sub _bin2hex($)
 
 }
 
-# returns a numerically-sorted list of conversions.
 sub bin2hex($)
 {
   my $bin = shift;
@@ -55,6 +54,7 @@ while (<>) {
   for my $binstr (@binstrs) {
     my $decode = bin2hex($binstr);
     my @chars = map {chr} @$decode;
+    @chars = grep {/^[[:print:]]+$/} @chars;
     if (@chars <= 8) {
       printf("%8s ", join('', @chars));
     } else {
