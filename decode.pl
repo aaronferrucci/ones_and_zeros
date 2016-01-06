@@ -1,16 +1,19 @@
 use strict;
 use warnings;
 
-# Given a list of input data items:
+# Given a list of input hash references:
 #   [
-#     bin => <something>, # binary digits, in [01x]
-#     val => <something>, # value computed so far
+#     {
+#       bin => <something>, # binary digits, in [01x]
+#       val => <something>, # value computed so far
+#     },
+#     ...
 #   ]
 #
-# extract the msb of 'bin' and recur on the rest:
-# a. if msb is 0, val is 2*val
-# b. if msb is 1, val is 2*val + 1
-# c. if msb is x, spawn two subvalues, 2*val, 2*val + 1
+# For each hash reference, extract the msb of 'bin' and recur on the rest:
+# a. if msb is 0, spawn a new subvalue (val is 2*val)
+# b. if msb is 1, spawn a new subvalue (val is 2*val + 1)
+# c. if msb is x, spawn two new subvalues, (2*val), (2*val + 1)
 #
 # base case: bin is empty string. In that case, done here, return all.
 sub _bin2hex($);
@@ -78,15 +81,18 @@ sub bin2hex($)
 }
 
 while (<>) {
+  print if /^#black/ or /^#red/;
   next if (/^\s*#/);
   my @binstrs = split(/\s+/);
   for my $binstr (@binstrs) {
     my $decode = bin2hex($binstr);
     my @chars = map {chr} @$decode;
+
+    @chars = map {/ / ? '\' \'' : $_} @chars;
     # Restrict consideration to printable characters.
     @chars = grep {/^[[:print:]]+$/} @chars;
     if (@chars <= 8) {
-      printf("%8s ", join('', @chars));
+      printf("%10s ", join('', @chars));
     } else {
       print "$binstr ";
     }
